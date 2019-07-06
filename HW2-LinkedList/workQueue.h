@@ -1,0 +1,101 @@
+#ifndef WORKQUEUE_H
+#define WORKQUEUE_H
+#include "workItem.h"
+
+/////////////////////////
+//  Chris Kelley
+//  CSS 342 - Project 2
+//  25 hours
+//  Cygwin
+/////////////////////////
+
+////////////////////////////////////////////
+// WorkQueue class
+//		A linked list for WorkItem Objects.
+//		Provides access to the workItems,
+//		organizes the workitems, and provides
+//		data about the workItems
+/////////////////////////////////////////////
+
+class WorkQueue
+{
+private:
+	Node * headPtr = nullptr;
+	int itemCount;
+
+public:
+	/////////////////////
+	//Default Constructor
+	/////////////////////
+	WorkQueue();
+
+	///////////////////////
+	//Deep Copy Constructor
+	///////////////////////
+	WorkQueue(const WorkQueue &);
+
+	/////////////////////////
+	//Deep Coppy Constructor
+	////////////////////////
+	WorkQueue& operator = (const WorkQueue &);
+
+	/////////////////
+	//Destructor
+	/////////////////
+	virtual ~WorkQueue();
+
+	////////////////////////
+	//Add WorkItem to queue
+	////////////////////////
+	void addWorkItem(const WorkItem&);
+
+	/////////////////////////////////////////////////////
+	//Returns next WorkItem for Priority provided.
+	//If multiple items of specified priority exist
+	//return the item that has been in the queue the
+	//longest.
+	//If no WorkItem exists for priority, throws exception
+	//////////////////////////////////////////////////////
+	const WorkItem& nextWorkItem(int priority) const;
+
+	///////////////////////////////////////////////
+	//Checks to see if WorkItem is in queue
+	//for specified priority.
+	/////////////////////////////////////////////
+	bool hasWorkItem(int priority);
+
+	//////////////////////////////////////////
+	//Checks to see if WorkItem is in queue
+	//for specified key ID.
+	////////////////////////////////////////
+	bool containsKey(const std::string& thisKey);
+
+	////////////////////////////////////////
+	//Moves specified Key ID to the head of 
+	//it's priority in queue.
+	///////////////////////////////////////
+	void bumpWorkItem(const std::string& key);
+
+	/////////////////////////////////////////
+	//Gets total number of items in the queue
+	/////////////////////////////////////////
+	int getNumWorkItems() const;
+
+	///////////////////////////////////
+	//Gets the number of items for the 
+	//specified priority
+	///////////////////////////////////
+	int getNumWorkItems(int thisPriority) const;
+
+	//////////////////////////////////////
+	//Delete WorkItem of the specified key
+	//////////////////////////////////////
+	void deleteWorkItem(std::string key);
+
+	///////////////////////////////////////
+	//Deletes all WorkItems in the queue
+	//////////////////////////////////////
+	void deleteAllWorkItems();
+};
+
+#endif
